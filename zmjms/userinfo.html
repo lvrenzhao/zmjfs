@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/mui.picker.min.css" rel="stylesheet" />
+    <script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js"></script>
+</head>
+<body>
+    <div class="mui-off-canvas-wrap mui-draggable">
+        <div class="mui-inner-wrap">
+            <header class="mui-bar mui-bar-nav">
+                <img src="img/newlogo.png" height="28px" style="margin-top: 16px;"  /><a style="font-size: 16px;">业务端</a>
+                <a id="btn_back" class="mui-icon mui-action-menu mui-icon-back mui-pull-right" href="" style="margin-top: 8px;"></a>
+            </header>
+            <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+                <div class="mui-scroll" id="global">
+	                
+	                <div class="mui-card">
+						<div class="mui-card-content">
+							<form class="mui-input-group" style="padding-top: 3px;">
+								<div class="mui-input-row">
+									<label>用户姓名</label>
+									<input type="text" class="mui-input-clear" placeholder="">
+								</div>
+								<div class="mui-input-row">
+									<label>登录名</label>
+									<input type="text" class="mui-input-clear" placeholder="">
+								</div>
+								<div class="mui-input-row">
+									<label>登录密码</label>
+									<input type="text" class="mui-input-clear" placeholder="">
+								</div>
+								<div class="mui-input-row">
+									<label>角色</label>
+									<input type="text" id="selectRole" class="mui-input-clear" placeholder="点击选择角色">
+								</div>
+								
+								<button id="btn_join" type="button" style="padding: 10px;margin: 5%;width: 90%;" class="mui-btn mui-btn-warning mui-btn-block">保存</button>
+								
+							</form>
+						</div>
+					</div>
+
+                </div>
+            </div>
+            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item mui-active" id="index"><span class="mui-icon mui-icon-compose"></span><span class="mui-tab-label">登记客户</span></a>
+	    		    <a class="mui-tab-item" id="mycustomer"><span class="mui-icon mui-icon-person"></span><span class="mui-tab-label">我的客户</span></a>
+	    		    <!--<a class="mui-tab-item" id="allcustomer"><span class="mui-icon mui-icon-bars"></span><span class="mui-tab-label">所有客户</span></a>
+	    		    <a class="mui-tab-item" id="setting" ><span class="mui-icon mui-icon-gear"></span><span class="mui-tab-label">账户管理</span></a>-->
+	    		    <a class="mui-tab-item mui-active" id="admin" ><span class="mui-icon mui-icon-gear"></span><span class="mui-tab-label">系统管理</span></a>
+	    		    <a class="mui-tab-item" id="logon" ><span class="mui-icon mui-icon-undo"></span><span class="mui-tab-label">返回登录</span></a>
+	    		</nav>
+        </div>
+    </div>
+	<script type="text/javascript">
+		mui.init();
+		var appConfig={};
+		mui.ajax('config.json',{
+		    dataType:'json',type:'get',async:false,success:function(data){appConfig = data;}
+		});
+		var scroll = mui('.mui-scroll-wrapper').scroll({deceleration: 0.0005 });
+		mui(".mui-bar-tab").on('tap','.mui-tab-item',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		});
+		
+		mui('body').on('tap','#btn_back',function(){
+			mui.openWindow({
+			    id:"setting",
+			    url:'setting.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		})
+	</script>
+	<script>
+		(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//普通示例
+					var rolePicker = new $.PopPicker();
+					rolePicker.setData([{
+						value: '2',
+						text: '普通账户'
+					},{
+						value: '1',
+						text: '系统管理员'
+					}]);
+					var selectRolePricker = doc.getElementById('selectRole');
+					selectRolePricker.addEventListener('tap', function(event) {
+						rolePicker.show(function(items) {
+							selectRolePricker.value = items[0].text;
+						});
+					}, false);
+					
+					
+				});
+		})(mui, document);
+	</script>
+	
+</body>
+</html>

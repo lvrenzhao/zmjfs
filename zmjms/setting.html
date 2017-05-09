@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <title></title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/mui.picker.min.css" rel="stylesheet" />
+    <link href="css/imgviewer.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js"></script>
+	<script src="js/mui.zoom.js"></script>
+	<script src="js/mui.previewimage.js"></script>
+</head>
+<body>
+    <div class="mui-off-canvas-wrap mui-draggable">
+        <div class="mui-inner-wrap">
+            <header class="mui-bar mui-bar-nav">
+                <img src="img/newlogo.png" height="28px" style="margin-top: 16px;"  /><a style="font-size: 16px;">业务端</a>
+                <a id="btn_addpersion" class="mui-icon mui-action-menu mui-icon-plusempty mui-pull-right" href="" style="margin-top: 8px;"></a>
+            </header>
+            <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+                <div class="mui-scroll" id="global">
+	                
+	                <div class="mui-card">
+						<div class="mui-card-header"><span>潘boss</span><span>管理员</span></div>
+						<div class="mui-card-content" style="padding:15px">
+							<span>登录名：bosspan</span><br/>
+							<span>登录密码：123</span><br/>
+							<span>创建日期：2017-01-01</span><br/>
+						</div>
+						<div class="mui-card-footer"><a>编辑</a><a>删除</a></div>
+					</div>
+
+                </div>
+            </div>
+            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item mui-active" id="index"><span class="mui-icon mui-icon-compose"></span><span class="mui-tab-label">登记客户</span></a>
+	    		    <a class="mui-tab-item" id="mycustomer"><span class="mui-icon mui-icon-person"></span><span class="mui-tab-label">我的客户</span></a>
+	    		    <!--<a class="mui-tab-item" id="allcustomer"><span class="mui-icon mui-icon-bars"></span><span class="mui-tab-label">所有客户</span></a>
+	    		    <a class="mui-tab-item" id="setting" ><span class="mui-icon mui-icon-gear"></span><span class="mui-tab-label">账户管理</span></a>-->
+	    		    <a class="mui-tab-item mui-active" id="admin" ><span class="mui-icon mui-icon-gear"></span><span class="mui-tab-label">系统管理</span></a>
+	    		    <a class="mui-tab-item" id="logon" ><span class="mui-icon mui-icon-undo"></span><span class="mui-tab-label">返回登录</span></a>
+	    		</nav>
+        </div>
+    </div>
+	<script type="text/javascript">
+		mui.init();
+		
+		var scroll = mui('.mui-scroll-wrapper').scroll({deceleration: 0.0005 });
+		mui(".mui-bar-tab").on('tap','.mui-tab-item',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		});
+		
+		mui('body').on('tap','#btn_addpersion',function(){
+			mui.openWindow({
+			    id:"userinfo",
+			    url:'userinfo.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		})
+		
+		
+	</script>
+	
+	
+</body>
+</html>

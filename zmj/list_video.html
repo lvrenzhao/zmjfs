@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <title></title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+</head>
+<body>
+    <div class="mui-off-canvas-wrap mui-draggable">
+        <div class="mui-inner-wrap">
+            <header class="mui-bar mui-bar-nav">
+                <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-right" href="#offCanvasSide" style="margin-top: 8px;"></a>
+                <img src="img/newlogo.png" height="28px" style="margin-top: 16px;"  />
+            </header>
+            <div class="mui-content mui-scroll-wrapper">
+                <div class="mui-scroll" id="global">
+	                <ul class="mui-table-view mui-grid-view" id="grid_videoList"></ul> 
+                </div>
+            </div>
+            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item" id="index"><span class="mui-icon mui-icon-home"></span><span class="mui-tab-label">芝麻家科普</span></a>
+	    		    <a class="mui-tab-item" id="evaluate"><span class="mui-icon mui-icon-compose"></span><span class="mui-tab-label">在线评估</span></a>
+	    		    <a class="mui-tab-item" id="usercenter"><span class="mui-icon mui-icon-person"></span><span class="mui-tab-label">个人中心</span></a>
+	    		    <a class="mui-tab-item" id="telphone" ><span class="mui-icon mui-icon-phone"></span><span class="mui-tab-label">电话咨询</span></a>
+	    		</nav>
+            <aside class="mui-off-canvas-right" id="offCanvasSide">
+                <div class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                    		<div style="margin: 35px 15px 10px;color: #fc0;">想要修防水，先来芝麻家!</div>
+                        <ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted" id="grid_menu">
+							<li class="mui-table-view-cell" id="index"><a class="mui-navigate-right" style="color: #fc0;"><span class="mui-icon mui-icon-home"></span> 芝麻家科普 </a></li>
+							<li class="mui-table-view-cell" id="evaluate"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-compose"></span> 在线评估</a></li>
+							<li class="mui-table-view-cell" id="usercenter"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-person"></span> 个人中心</a></li>
+							<li class="mui-table-view-cell" id="workflow"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-paperclip"></span> 修缮流程</a></li>
+							<li class="mui-table-view-cell" id="cases"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-flag"></span> 修缮案例 </a></li>
+							<li class="mui-table-view-cell" id="job"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-contact"></span> 师傅招募 </a></li>
+							<li class="mui-table-view-cell" id="about"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-info"></span> 关于芝麻家 </a></li>
+						</ul>
+	                </div>
+	            </div>
+            </aside>
+       	 	<div class="mui-off-canvas-backdrop"></div>
+        </div>
+    </div>
+	<script type="text/javascript">
+		mui.init();
+		var sysconfig={}
+		var scroll = mui('.mui-scroll-wrapper').scroll({deceleration: 0.0005 });
+		mui.ajax('config/config.json',{
+		    dataType:'json',type:'get',async:false,success:function(data){sysconfig = data;}
+		});
+		var videoHTML = "";
+		for(var i = 0; i < sysconfig.videolist.length; i++){
+			videoHTML += '<li class="mui-table-view-cell mui-media mui-col-xs-6" id="'+sysconfig.videolist[i].id+'"><a href="javascript:;"><img src="img/media_video.png" style="position:absolute;left:50%; top:50%;margin-top:-26px;margin-left:-14px;width:44px;height:44px;z-index:1;" /> <img class="mui-media-object" src="'
+						+sysconfig.videolist[i].post+'"><div class="mui-media-body">'+sysconfig.videolist[i].desc+'</div></a></li>';
+		}
+		document.getElementById('grid_videoList').innerHTML = videoHTML;
+		mui("#grid_videoList").on('tap','.mui-table-view-cell',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:'details_video.html?id='+id,
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}); 
+		mui(".mui-bar-tab").on('tap','.mui-tab-item',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id=="telphone"?"tel:"+sysconfig.telphone:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+		mui("#grid_menu").on('tap','.mui-table-view-cell',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+	</script>
+</body>
+</html>

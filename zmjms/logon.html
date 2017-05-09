@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+		</style>
+	</head>
+
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title" style="line-height: 60px;">登录</h1>
+		</header>
+		<div class="mui-content">
+			
+			<div style="text-align: center;margin: 30px;">
+				<img src="img/newlogo.png" style="width: 70%;" />
+			</div>
+			
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input id='username' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+			</form>
+			<form class="mui-input-group">
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">
+						记住密码
+						<div id="autoLogin" class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+			</form>
+			<div class="mui-content-padded">
+				<button id="btn_login" type="button" style="padding: 10px;" class="mui-btn mui-btn-warning mui-btn-block">登录</button>
+							
+			</div>
+			<div class="mui-content-padded oauth-area">
+
+			</div>
+		</div>
+		
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var _autologin = localStorage.getItem("autologin");
+			if(_autologin && _autologin == "true"){
+				var setAutoLogin = document.getElementById("autoLogin");
+				setAutoLogin.classList.add("mui-active");
+				//读取密码
+				var _password = localStorage.getItem("password");
+				var txt_password = document.getElementById("password");
+				txt_password.value = _password;
+			}
+			
+			var _username = localStorage.getItem("username");
+			if(_username){
+				var txt_username = document.getElementById("username");
+				txt_username.value = _username;
+			}
+			var appConfig={};
+			mui.ajax('config.json',{
+			    dataType:'json',type:'get',async:false,success:function(data){appConfig = data;}
+			});
+			mui(".mui-content").on('tap',"#btn_login",function(){
+				login();
+			}) 
+			
+			function login(){
+				var txt_username = document.getElementById("username");
+				var txt_password = document.getElementById("password");
+				if(txt_username.value && txt_password.value){
+					var setAutoLogin = document.getElementById("autoLogin");
+					localStorage.setItem("username",txt_username.value);
+					localStorage.setItem("password",txt_password.value);
+					localStorage.setItem("autologin",setAutoLogin.classList.contains("mui-active"));
+					mui.ajax(appConfig.apiroot+'login.php?username='+txt_username.value+'&password='+txt_password.value,{
+					    dataType:'json',type:'get',success:function(result){
+					    		if(result && result.data && result.data.length >0 ){
+					    			mui.openWindow({id:"index",url:'index.html',createNew:true,	show:{ autoShow:true,aniShow:"",}});
+					    		}else{
+					    			mui.alert("登录名或密码不正确","提醒")
+					    		}
+					    }
+					});
+				}else{
+					mui.alert("用户名和密码不能为空","提醒");
+				}
+			}
+			
+			
+		</script>
+	</body>
+
+</html>

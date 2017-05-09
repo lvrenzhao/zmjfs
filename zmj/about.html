@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <title></title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+</head>
+<body>
+    <div class="mui-off-canvas-wrap mui-draggable">
+        <div class="mui-inner-wrap">
+            <header class="mui-bar mui-bar-nav">
+                <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-right" href="#offCanvasSide" style="margin-top: 8px;"></a>
+                <img src="img/newlogo.png" height="28px" style="margin-top: 16px;"  />
+            </header>
+            <div class="mui-content mui-scroll-wrapper">
+                <div class="mui-scroll" id="global">
+	                <div class="article">
+					  <h5>关于芝麻家</h5>
+					  <hr>
+					  <p>芝麻家是安徽芝麻家科技有限公司旗下防水家修品牌。</p>
+					  <p>芝麻家致力于为城市家庭客户提供高品质，高效率的防水、家修修缮服务，为客户提供”便捷、透明、放心、有保障” 的家修服务。</p>
+					  <p>芝麻家通过对防水、家修行业的产业链整合，并借助移动互联网优势，为用户提供高性价比、高标准、持续长期的家修居家服务，让您的居家生活更轻松。</p>
+					  <p>芝麻家同时推出芝麻说视频栏目，芝麻说是一档专注于介绍家居生活和维修的科普类视频。通过芝麻说，为广大客户提供专业、靠谱、有效有料的居家知识，为您的居家生活更添一份力。</p>
+					</div>
+                </div>
+            </div>
+            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item" id="index"><span class="mui-icon mui-icon-home"></span><span class="mui-tab-label">芝麻家科普</span></a>
+	    		    <a class="mui-tab-item" id="evaluate"><span class="mui-icon mui-icon-compose"></span><span class="mui-tab-label">在线评估</span></a>
+	    		    <a class="mui-tab-item" id="usercenter"><span class="mui-icon mui-icon-person"></span><span class="mui-tab-label">个人中心</span></a>
+	    		    <a class="mui-tab-item" id="telphone" ><span class="mui-icon mui-icon-phone"></span><span class="mui-tab-label">电话咨询</span></a>
+	    		</nav>
+            <aside class="mui-off-canvas-right" id="offCanvasSide">
+                <div class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                    		<div style="margin: 35px 15px 10px;color: #fc0;">想要修防水，先来芝麻家!</div>
+                        <ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted" id="grid_menu">
+							<li class="mui-table-view-cell" id="index"><a class="mui-navigate-right" style="color: #fc0;"><span class="mui-icon mui-icon-home"></span> 芝麻家科普 </a></li>
+							<li class="mui-table-view-cell" id="evaluate"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-compose"></span> 在线评估</a></li>
+							<li class="mui-table-view-cell" id="usercenter"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-person"></span> 个人中心</a></li>
+							<li class="mui-table-view-cell" id="workflow"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-paperclip"></span> 修缮流程</a></li>
+							<li class="mui-table-view-cell" id="cases"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-flag"></span> 修缮案例 </a></li>
+							<li class="mui-table-view-cell" id="job"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-contact"></span> 师傅招募 </a></li>
+							<li class="mui-table-view-cell" id="about"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-info"></span> 关于芝麻家 </a></li>
+						</ul>
+	                </div>
+	            </div>
+            </aside>
+       	 	<div class="mui-off-canvas-backdrop"></div>
+        </div>
+    </div>
+	<script type="text/javascript">
+		mui.init();
+		var sysconfig={}
+		var scroll = mui('.mui-scroll-wrapper').scroll({deceleration: 0.0005 });
+		mui.ajax('config/config.json',{
+		    dataType:'json',type:'get',async:false,success:function(data){sysconfig = data;}
+		});
+		mui(".mui-bar-tab").on('tap','.mui-tab-item',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id=="telphone"?"tel:"+sysconfig.telphone:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+		mui("#grid_menu").on('tap','.mui-table-view-cell',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+	</script>
+</body>
+</html>

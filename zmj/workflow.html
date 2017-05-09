@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <title></title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <style>
+    	
+#cd-timeline {
+  position: relative;
+  padding: 0px 10px;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+#cd-timeline::before {
+  /* this is the vertical line */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 27px;
+  height: 100%;
+  width: 4px;
+  background: #d7e4ed;
+}
+@media only screen and (min-width: 1170px) {
+  #cd-timeline {
+    margin-top: 3em;
+    margin-bottom: 3em;
+  }
+  #cd-timeline::before {
+    left: 50%;
+    margin-left: -2px;
+  }
+}
+
+.cd-timeline-block {
+  position: relative;
+  margin: 2em 0;
+}
+.cd-timeline-block:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cd-timeline-block:first-child {
+  margin-top: 0;
+}
+.cd-timeline-block:last-child {
+  margin-bottom: 0;
+}
+@media only screen and (min-width: 1170px) {
+  .cd-timeline-block {
+    margin: 4em 0;
+  }
+  .cd-timeline-block:first-child {
+    margin-top: 0;
+  }
+  .cd-timeline-block:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.cd-timeline-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+}
+.cd-timeline-img img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  margin-left: -12px;
+  margin-top: -12px;
+}
+.cd-timeline-img.cd-picture {
+  background: #f2ad2b;
+}
+.cd-timeline-img.cd-movie {
+  background: #c03b44;
+}
+.cd-timeline-img.cd-location {
+  background: #f0ca45;
+}
+@media only screen and (min-width: 1170px) {
+  .cd-timeline-img {
+    width: 60px;
+    height: 60px;
+    left: 50%;
+    margin-left: -30px;
+    /* Force Hardware Acceleration in WebKit */
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+  }
+  .cssanimations .cd-timeline-img.is-hidden {
+    visibility: hidden;
+  }
+  .cssanimations .cd-timeline-img.bounce-in {
+    visibility: visible;
+    -webkit-animation: cd-bounce-1 0.6s;
+    -moz-animation: cd-bounce-1 0.6s;
+    animation: cd-bounce-1 0.6s;
+  }
+}
+
+.cd-timeline-content {
+  position: relative;
+  margin-left: 60px;
+  background: white;
+  border-radius: 0.25em;
+  padding: 1em;
+  box-shadow: 0 3px 0 #d7e4ed;
+}
+.cd-timeline-content:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cd-timeline-content h2 {
+  color: #303e49;
+}
+.cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
+  font-size: 13px;
+  font-size: 0.8125rem;
+}
+.cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
+  display: inline-block;
+}
+.cd-timeline-content p {
+  margin: 1em 0;
+  line-height: 1.6;
+}
+.cd-timeline-content .cd-read-more {
+  float: right;
+  padding: .8em 1em;
+  background: #acb7c0;
+  color: white;
+  border-radius: 0.25em;
+}
+.no-touch .cd-timeline-content .cd-read-more:hover {
+  background-color: #bac4cb;  
+}
+a.cd-read-more:hover{text-decoration:none; background-color: #424242;  }
+.cd-timeline-content .cd-date {
+  float: left;
+  padding: .8em 0;
+  opacity: .7;
+}
+.cd-timeline-content::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: 100%;
+  height: 0;
+  width: 0;
+  border: 7px solid transparent;
+  border-right: 7px solid white;
+}
+@media only screen and (min-width: 768px) {
+  .cd-timeline-content h2 {
+    font-size: 20px;
+    font-size: 1.25rem;
+  }
+  .cd-timeline-content p {
+    font-size: 16px;
+    font-size: 1rem;
+  }
+  .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
+    font-size: 14px;
+    font-size: 0.875rem;
+  }
+}
+@media only screen and (min-width: 1170px) {
+  .cd-timeline-content {
+    margin-left: 0;
+    padding: 1.6em;
+    width: 45%;
+  }
+  .cd-timeline-content::before {
+    top: 24px;
+    left: 100%;
+    border-color: transparent;
+    border-left-color: white;
+  }
+  .cd-timeline-content .cd-read-more {
+    float: left;
+  }
+  .cd-timeline-content .cd-date {
+    position: absolute;
+    width: 100%;
+    left: 122%;
+    top: 6px;
+    font-size: 16px;
+    font-size: 1rem;
+  }
+  .cd-timeline-block:nth-child(even) .cd-timeline-content {
+    float: right;
+  }
+  .cd-timeline-block:nth-child(even) .cd-timeline-content::before {
+    top: 24px;
+    left: auto;
+    right: 100%;
+    border-color: transparent;
+    border-right-color: white;
+  }
+  .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-read-more {
+    float: right;
+  }
+  .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-date {
+    left: auto;
+    right: 122%;
+    text-align: right;
+  }
+  .cssanimations .cd-timeline-content.is-hidden {
+    visibility: hidden;
+  }
+  .cssanimations .cd-timeline-content.bounce-in {
+    visibility: visible;
+    -webkit-animation: cd-bounce-2 0.6s;
+    -moz-animation: cd-bounce-2 0.6s;
+    animation: cd-bounce-2 0.6s;
+  }
+}
+
+@media only screen and (min-width: 1170px) {
+  /* inverse bounce effect on even content blocks */
+  .cssanimations .cd-timeline-block:nth-child(even) .cd-timeline-content.bounce-in {
+    -webkit-animation: cd-bounce-2-inverse 0.6s;
+    -moz-animation: cd-bounce-2-inverse 0.6s;
+    animation: cd-bounce-2-inverse 0.6s;
+  }
+}
+    </style>
+</head>
+<body>
+    <div class="mui-off-canvas-wrap mui-draggable">
+        <div class="mui-inner-wrap">
+            <header class="mui-bar mui-bar-nav">
+                <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-right" href="#offCanvasSide" style="margin-top: 8px;"></a>
+                <img src="img/newlogo.png" height="28px" style="margin-top: 16px;"  />
+            </header>
+            <div class="mui-content mui-scroll-wrapper">
+                <div class="mui-scroll" id="global">
+	                
+					<div style="width: 100%;height: 50px;background-color: #fafafa;text-align: center;padding-top: 17px;padding-left: 10px;padding-right: 10px;">
+		                	 <a href="javascript:;" style="color: #7f7f7f;">芝麻家防水修缮流程</a>
+		            </div>
+	                <section id="cd-timeline" class="cd-container">
+						<div class="cd-timeline-block">
+							<div class="cd-timeline-img cd-picture">
+								<span style="color: white;display: inline-block;margin-left: 15px;margin-top: 10px;">1</span>
+							</div>
+							<div class="cd-timeline-content">
+								<h2>勘察设计议价</h2>
+								<p>电话说明具体情况<br/>安排时间勘察<br/>勘察人员按标准报价</p>
+							</div>
+						</div>
+						<div class="cd-timeline-block">
+							<div class="cd-timeline-img cd-movie">
+								<span style="color: white;display: inline-block;margin-left: 15px;margin-top: 10px;">2</span>
+							</div>
+							<div class="cd-timeline-content">
+								<h2>确定施工日期</h2>
+								<p>确定施工日期后正式开始施工</p>
+							</div>
+						</div>
+						<div class="cd-timeline-block">
+							<div class="cd-timeline-img cd-picture">
+								<span style="color: white;display: inline-block;margin-left: 15px;margin-top: 10px;">3</span>
+							</div>
+							<div class="cd-timeline-content">
+								<h2>现场检验完成</h2>
+								<p>施工后现场检验、签订协议、支付款项</p>
+							</div>
+						</div>
+						<div class="cd-timeline-block">
+							<div class="cd-timeline-img cd-movie">
+								<span style="color: white;display: inline-block;margin-left: 15px;margin-top: 10px;">4</span>
+							</div>
+							<div class="cd-timeline-content">
+								<h2>获取20年质保</h2>
+								<p>获取20年质保卡，质保期内免费服务。</p>
+							</div>
+						</div>
+						<div class="cd-timeline-block">
+							<div class="cd-timeline-img cd-picture">
+								<span style="color: white;display: inline-block;margin-left: 15px;margin-top: 10px;">5</span>
+							</div>
+							<div class="cd-timeline-content">
+								<h2>售后回访</h2>
+								<p>完成检验后支付余额，半年或一年两次回访。</p>
+							</div>
+						</div>
+					</section>
+					
+
+	                
+	                
+                </div>
+            </div>
+            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item" id="index"><span class="mui-icon mui-icon-home"></span><span class="mui-tab-label">芝麻家科普</span></a>
+	    		    <a class="mui-tab-item" id="evaluate"><span class="mui-icon mui-icon-compose"></span><span class="mui-tab-label">在线评估</span></a>
+	    		    <a class="mui-tab-item" id="usercenter"><span class="mui-icon mui-icon-person"></span><span class="mui-tab-label">个人中心</span></a>
+	    		    <a class="mui-tab-item" id="telphone" ><span class="mui-icon mui-icon-phone"></span><span class="mui-tab-label">电话咨询</span></a>
+	    		</nav>
+            <aside class="mui-off-canvas-right" id="offCanvasSide">
+                <div class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                    		<div style="margin: 35px 15px 10px;color: #fc0;">想要修防水，先来芝麻家!</div>
+                        <ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted" id="grid_menu">
+							<li class="mui-table-view-cell" id="index"><a class="mui-navigate-right" style="color: #fc0;"><span class="mui-icon mui-icon-home"></span> 芝麻家科普 </a></li>
+							<li class="mui-table-view-cell" id="evaluate"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-compose"></span> 在线评估</a></li>
+							<li class="mui-table-view-cell" id="usercenter"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-person"></span> 个人中心</a></li>
+							<li class="mui-table-view-cell" id="workflow"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-paperclip"></span> 修缮流程</a></li>
+							<li class="mui-table-view-cell" id="cases"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-flag"></span> 修缮案例 </a></li>
+							<li class="mui-table-view-cell" id="job"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-contact"></span> 师傅招募 </a></li>
+							<li class="mui-table-view-cell" id="about"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-info"></span> 关于芝麻家 </a></li>
+						</ul>
+	                </div>
+	            </div>
+            </aside>
+       	 	<div class="mui-off-canvas-backdrop"></div>
+        </div>
+    </div>
+	<script type="text/javascript">
+		mui.init();
+		var sysconfig={}
+		var scroll = mui('.mui-scroll-wrapper').scroll({deceleration: 0.0005 });
+		mui.ajax('config/config.json',{
+		    dataType:'json',type:'get',async:false,success:function(data){sysconfig = data;}
+		});
+		mui(".mui-bar-tab").on('tap','.mui-tab-item',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id=="telphone"?"tel:"+sysconfig.telphone:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+		mui("#grid_menu").on('tap','.mui-table-view-cell',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+	</script>
+</body>
+</html>

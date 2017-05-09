@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <title></title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+</head>
+<body>
+    <div class="mui-off-canvas-wrap mui-draggable">
+        <div class="mui-inner-wrap">
+            <header class="mui-bar mui-bar-nav">
+                <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-right" href="#offCanvasSide" style="margin-top: 8px;"></a>
+                <img src="img/newlogo.png" height="28px" style="margin-top: 16px;"  />
+            </header>
+            <div class="mui-content mui-scroll-wrapper">
+                <div class="mui-scroll" id="global">
+	                <div class="tabcontainer">
+						<div id="segmentedControlarticle" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#articleitem1">卫生间</a>
+							<a class="mui-control-item" href="#articleitem2">飘窗窗户</a>
+							<a class="mui-control-item" href="#articleitem3">顶板</a>
+							<a class="mui-control-item" href="#articleitem4">墙面</a>
+						</div>
+		                <div id="articleitem1" class="mui-control-content mui-active">
+		                		<ul class="mui-table-view" id="grid_article1"></ul>
+		                </div>
+		                <div id="articleitem2" class="mui-control-content">
+		                		<ul class="mui-table-view" id="grid_article2"></ul>
+		                </div>
+		                <div id="articleitem3" class="mui-control-content">
+		                		 <ul class="mui-table-view" id="grid_article3"></ul>
+		                </div>
+		                <div id="articleitem4" class="mui-control-content">
+		                		 <ul class="mui-table-view" id="grid_article4"></ul>
+		                </div>
+					</div>
+                </div>
+            </div>
+            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item" id="index"><span class="mui-icon mui-icon-home"></span><span class="mui-tab-label">芝麻家科普</span></a>
+	    		    <a class="mui-tab-item" id="evaluate"><span class="mui-icon mui-icon-compose"></span><span class="mui-tab-label">在线评估</span></a>
+	    		    <a class="mui-tab-item" id="usercenter"><span class="mui-icon mui-icon-person"></span><span class="mui-tab-label">个人中心</span></a>
+	    		    <a class="mui-tab-item" id="telphone" ><span class="mui-icon mui-icon-phone"></span><span class="mui-tab-label">电话咨询</span></a>
+	    		</nav>
+            <aside class="mui-off-canvas-right" id="offCanvasSide">
+                <div class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                    		<div style="margin: 35px 15px 10px;color: #fc0;">想要修防水，先来芝麻家!</div>
+                        <ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted" id="grid_menu">
+							<li class="mui-table-view-cell" id="index"><a class="mui-navigate-right" style="color: #fc0;"><span class="mui-icon mui-icon-home"></span> 芝麻家科普 </a></li>
+							<li class="mui-table-view-cell" id="evaluate"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-compose"></span> 在线评估</a></li>
+							<li class="mui-table-view-cell" id="usercenter"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-person"></span> 个人中心</a></li>
+							<li class="mui-table-view-cell" id="workflow"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-paperclip"></span> 修缮流程</a></li>
+							<li class="mui-table-view-cell" id="cases"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-flag"></span> 修缮案例 </a></li>
+							<li class="mui-table-view-cell" id="job"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-contact"></span> 师傅招募 </a></li>
+							<li class="mui-table-view-cell" id="about"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-info"></span> 关于芝麻家 </a></li>
+						</ul>
+	                </div>
+	            </div>
+            </aside>
+       	 	<div class="mui-off-canvas-backdrop"></div>
+        </div>
+    </div>
+	<script type="text/javascript">
+		mui.init();
+		var sysconfig={}
+		var scroll = mui('.mui-scroll-wrapper').scroll({deceleration: 0.0005 });
+		mui.ajax('config/config.json',{
+		    dataType:'json',type:'get',async:false,success:function(data){sysconfig = data;}
+		});
+		var articleHTML1 = "",articleHTML2 = "",articleHTML3 = "",articleHTML4 = "";
+		for(var i = 0; i < sysconfig.articlelist.length; i++){
+			var itemStr = '<li class="mui-table-view-cell mui-media" id="'+sysconfig.articlelist[i].article+'"><a href="javascript:;"><img class="mui-media-object mui-pull-left" src="'+sysconfig.articlelist[i].thumb+'"><div class="mui-media-body">'+
+							sysconfig.articlelist[i].title+'<p class="mui-ellipsis">'+sysconfig.articlelist[i].subtitle+'</p> </div></a></li>';
+			if(sysconfig.articlelist[i].type == 1 ){
+				articleHTML1 += itemStr;
+			}else if(sysconfig.articlelist[i].type == 2){
+				articleHTML2 += itemStr;
+			}else if(sysconfig.articlelist[i].type == 3){
+				articleHTML3 += itemStr;
+			}else if(sysconfig.articlelist[i].type == 3){
+				articleHTML4 += itemStr;
+			}
+		}
+		document.getElementById('grid_article1').innerHTML = articleHTML1;
+		document.getElementById('grid_article2').innerHTML = articleHTML2;
+		document.getElementById('grid_article3').innerHTML = articleHTML3;
+		document.getElementById('grid_article4').innerHTML = articleHTML4;
+		mui(".mui-bar-tab").on('tap','.mui-tab-item',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id=="telphone"?"tel:"+sysconfig.telphone:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		});
+		mui("#grid_menu").on('tap','.mui-table-view-cell',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}); 
+		mui("#articleitem1").on('tap','.mui-table-view-cell',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:'details_article.html?id='+id,
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+		mui("#articleitem2").on('tap','.mui-table-view-cell',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:'details_article.html?id='+id,
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+		mui("#articleitem3").on('tap','.mui-table-view-cell',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:'details_article.html?id='+id,
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+	</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{
+	"telphone":"10086",
+	"wechatid":"芝麻家",
+	"apiroot":"http://www.wmaizhu.com/zmjapi/",
+	"zd":"1000-8000",
+	"n":"200-344",
+	"jn":"haha",
+	"videolist":[
+		{
+			"id":"2016-01-01-001",
+			"url":"http://video.feidieshuo.com/mp4/%E9%A3%9E%E7%A2%9F%E8%AF%B4/%E8%87%AA%E5%8F%A4%E5%A5%97%E8%B7%AF%E7%95%99%E4%B8%8D%E4%BD%8F%E6%80%BB%E6%98%AF%E5%8F%A3%E7%A2%91%E5%BE%97%E4%BA%BA%E5%BF%83%E8%85%BE%E8%AE%AF.mp4",
+			"post":"config/post/1.jpg",
+			"desc":"先了解防水再修防水"
+		},{
+			"id":"2016-01-01-002",
+			"url":"http://video.feidieshuo.com/mp4/%E9%A3%9E%E7%A2%9F%E8%AF%B4/%E8%87%AA%E5%8F%A4%E5%A5%97%E8%B7%AF%E7%95%99%E4%B8%8D%E4%BD%8F%E6%80%BB%E6%98%AF%E5%8F%A3%E7%A2%91%E5%BE%97%E4%BA%BA%E5%BF%83%E8%85%BE%E8%AE%AF.mp4",
+			"post":"config/post/2.jpg",
+			"desc":"渗漏越早发现越好"
+		},{
+			"id":"2016-01-02-001",
+			"url":"http://video.feidieshuo.com/mp4/%E9%A3%9E%E7%A2%9F%E8%AF%B4/%E8%87%AA%E5%8F%A4%E5%A5%97%E8%B7%AF%E7%95%99%E4%B8%8D%E4%BD%8F%E6%80%BB%E6%98%AF%E5%8F%A3%E7%A2%91%E5%BE%97%E4%BA%BA%E5%BF%83%E8%85%BE%E8%AE%AF.mp4",
+			"post":"config/post/3.jpg",
+			"desc":"新型技术修复顶楼渗透"
+		},{
+			"id":"2016-01-03-001",
+			"url":"http://video.feidieshuo.com/mp4/%E9%A3%9E%E7%A2%9F%E8%AF%B4/%E8%87%AA%E5%8F%A4%E5%A5%97%E8%B7%AF%E7%95%99%E4%B8%8D%E4%BD%8F%E6%80%BB%E6%98%AF%E5%8F%A3%E7%A2%91%E5%BE%97%E4%BA%BA%E5%BF%83%E8%85%BE%E8%AE%AF.mp4",
+			"post":"config/post/4.jpg",
+			"desc":"高层外墙渗漏怎么办"
+		},{
+			"id":"2016-01-04-001",
+			"url":"http://video.feidieshuo.com/mp4/%E9%A3%9E%E7%A2%9F%E8%AF%B4/%E8%87%AA%E5%8F%A4%E5%A5%97%E8%B7%AF%E7%95%99%E4%B8%8D%E4%BD%8F%E6%80%BB%E6%98%AF%E5%8F%A3%E7%A2%91%E5%BE%97%E4%BA%BA%E5%BF%83%E8%85%BE%E8%AE%AF.mp4",
+			"post":"config/post/5.jpg",
+			"desc":"防水做完墙面如何刷新"
+		}
+	],
+	"articlelist":[
+		{
+			"id":"2017-01-01-001",
+			"type":"zxzr",
+			"title":"渗透结晶技术为什么能长效防水不渗漏",
+			"subtitle":"更新日期:2017-01-01 作者:金子",
+			"thumb":"config/thumb/1.png",
+			"article":"config/article/1.html"
+		}
+	]
+	
+	
+}

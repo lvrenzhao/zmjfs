@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/mui.picker.min.css" rel="stylesheet" />
+    <link href="css/imgviewer.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js"></script>
+	<script src="js/mui.zoom.js"></script>
+	<script src="js/mui.previewimage.js"></script>
+	<style>
+   	 	.pg-title{float:left;width:100%;clear:both;margin-top: 15px;padding-left:10px;padding-bottom:5px;font-size: 14px;color: #666;}
+   	 	.pg-container{width: 100%;}
+   	 	.pg-container-item{float:left;width:44%;height: 65px; border: 1px solid orange;margin:3%;text-align: center;background-color: #ffffff;color: #666;display: -webkit-box;
+						  -webkit-box-orient: horizontal;-webkit-box-pack: center;-webkit-box-align: center;
+						  display: -moz-box;-moz-box-orient: horizontal;-moz-box-pack: center;-moz-box-align: center;
+						  display: -o-box;-o-box-orient: horizontal;-o-box-pack: center;-o-box-align: center;
+						  display: -ms-box;-ms-box-orient: horizontal;-ms-box-pack: center;-ms-box-align: center;
+						  display: box;box-orient: horizontal;box-pack: center;box-align: center;
+						  padding: 5px;;}
+   	 	.pg-container-item.active{background-color: #fc0;color: #fff;}
+   	 	.pg-container-item span{font-size: 14px;}
+   	 	.wb100{width: 94% !important;}
+   	 	.center{text-align: center;}
+   	 	.h4{font-size: 20px;font-weight: 700;}
+   	 	.h6{font-size: 16px !important;font-weight: 900 !important;}
+   	 	i{display:block;float: right;margin-top: -50px;margin-right: 30px;}
+    </style>
+</head>
+<body>
+    <div class="mui-off-canvas-wrap mui-draggable">
+        <div class="mui-inner-wrap">
+            <header class="mui-bar mui-bar-nav">
+                <img src="img/newlogo.png" height="28px" style="margin-top: 16px;"  /><a style="font-size: 16px;">业务端</a>
+            </header>
+            <div class="mui-content mui-scroll-wrapper">
+                <div class="mui-scroll" id="global">
+	                <div class="mui-card">
+						<div class="mui-card-content">
+							<form class="mui-input-group" style="padding-top: 3px;">
+								<div class="mui-input-row">
+									<label>业主称呼</label>
+									<input type="text" id="txt_khch" placeholder="例如：张先生">
+								</div>
+								<!--<div class="mui-input-row">
+									<label>业主性别</label>
+									<input type="text" id="selecsex" class="mui-input-clear" placeholder="点击选择性别">
+								</div>-->
+								<div class="mui-input-row">
+									<label>业主手机号</label>
+									<input type="text" id="txt_sjh" class="mui-input-clear" placeholder="">
+								</div>
+								<div class="mui-input-row">
+									<label>小区名称</label>
+									<input type="text" id="txt_xqm"  class="mui-input-clear" placeholder="例如：华润万象城2期">
+								</div>
+								<div class="mui-input-row">
+									<label>小区楼栋</label>
+									<input type="text" id="txt_ld" class="mui-input-clear" placeholder="例如：9">
+								</div>
+								<div class="mui-input-row">
+									<label>门牌号</label>
+									<input type="text" id="txt_mph" class="mui-input-clear" placeholder="例如：201">
+								</div>
+								<div class="mui-input-row">
+									<label>渗水位置</label>
+									<input type="text" id="selectweizhi" class="mui-input-clear" placeholder="点击选择渗水位置">
+								</div>
+								<div class="mui-input-row">
+									<label>备注</label>
+									<input type="text" id="bz" class="mui-input-clear" placeholder="填写备注情况">
+								</div>
+								
+								<div class="mui-card">
+									<div class="mui-card-header">渗漏情况</div>
+									<div class="mui-card-content" id="slqk">
+										<span style="display: inline-block;padding: 14px;">请先选择渗漏位置</span>
+									</div>
+								</div>
+								<div class="mui-card">
+									<div class="mui-card-header">现场勘查照片</div>
+									<div class="mui-card-content">
+										<ul id="list" class="mui-table-view mui-grid-view mui-grid-9">
+											<li id="xupload" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+											    <a><span class="mui-icon mui-icon-plus-filled"></span><br/><span style="font-size: 12px;">添加照片</span></a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								
+								<button id="btn_join" type="button" style="padding: 10px;margin: 5%;width: 90%;" class="mui-btn mui-btn-warning mui-btn-block">登记客户</button>
+								
+							</form>
+						</div>
+					</div>
+                </div>
+            </div>
+            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item mui-active" id="index"><span class="mui-icon mui-icon-compose"></span><span class="mui-tab-label">登记客户</span></a>
+	    		    <a class="mui-tab-item" id="mycustomer"><span class="mui-icon mui-icon-person"></span><span class="mui-tab-label">我的客户</span></a>
+	    		    <!--<a class="mui-tab-item" id="allcustomer"><span class="mui-icon mui-icon-bars"></span><span class="mui-tab-label">所有客户</span></a>
+	    		    <a class="mui-tab-item" id="setting" ><span class="mui-icon mui-icon-gear"></span><span class="mui-tab-label">账户管理</span></a>-->
+	    		    <a class="mui-tab-item" id="admin" style="display: none;" ><span class="mui-icon mui-icon-gear"></span><span class="mui-tab-label">系统管理</span></a>
+	    		    <a class="mui-tab-item" id="sjz" ><span class="mui-icon mui-icon-home"></span><span class="mui-tab-label">手机站</span></a>
+	    		    <a class="mui-tab-item" id="logon" ><span class="mui-icon mui-icon-undo"></span><span class="mui-tab-label">返回登录</span></a>
+	    		</nav>
+        </div>
+    </div>
+	<script type="text/javascript">
+		mui.init();
+		if(localStorage.getItem("js") == "系统管理员" || localStorage.getItem("js") == "勘察人员"){
+			document.getElementById("admin").style.display = "table-cell";
+		}
+		mui.previewImage();
+		var caseid = guid();
+		var appConfig={};
+		mui.ajax('config.json',{
+		    dataType:'json',type:'get',async:false,success:function(data){appConfig = data;}
+		});
+		var scroll = mui('.mui-scroll-wrapper').scroll({deceleration: 0.0005 });
+		
+		mui(".mui-bar-tab").on('tap','.mui-tab-item',function(){
+			  var id = this.getAttribute("id");
+			  if(id == "sjz"){
+			  	plus.runtime.openURL('http://wmaizhu.com/zmj/index.html');
+			  }else{
+				  mui.openWindow({
+				    id:id,
+				    url:id+'.html',
+					createNew:true,
+				    	show:{autoShow:true,aniShow:"",},
+				  });
+			  }
+		});
+		
+		
+		mui('body').on('tap','.pg-container-item',function(){
+			this.classList.toggle('active');
+		})
+		
+		mui('body').on('tap','#btn_join',function(){
+			var yhid = localStorage.getItem("yhid");
+			var khch = document.getElementById("txt_khch").value;
+			var sjh = document.getElementById("txt_sjh").value;
+			var xqmc = document.getElementById("txt_xqm").value;
+			var xqld = document.getElementById("txt_ld").value;
+			var mph = document.getElementById("txt_mph").value;
+			var sswz = document.getElementById("selectweizhi").value;
+			var bz = document.getElementById("bz").value;
+			var checkitems ="";
+			if(khch && sjh && xqmc && sswz){
+				mui(".pg-container-item.active").each(function () {
+				  	checkitems += this.getElementsByTagName("span")[0].innerText+";";
+				});
+				//console.log(caseid,khch,sjh,xqmc,xqld,mph,sswz,checkitems)
+				mui.ajax(appConfig.apiroot+'submitcase.php',{
+					data:{
+						khid:caseid,
+						khch:khch,
+						sjh:sjh,
+						xqmc:xqmc,
+						xqld:xqld,
+						mph:mph,
+						sswz:sswz,
+						djr:yhid,
+						checkitems:checkitems,
+						bz:bz
+					},
+					dataType:'json',
+					type:'post',
+					timeout:100000,           
+					success:function(data){
+						mui.openWindow({
+						    id:"mycustomer",
+						    url:'mycustomer.html',
+							createNew:true,
+						    	show:{autoShow:true,aniShow:"",},
+						});
+					},
+					error:function(xhr,type,errorThrown){
+						mui.alert("提交失败...","提醒");
+					}
+				});
+			}else{
+				mui.alert("请务必输入完整后再提交","提醒");
+			}
+		})
+		
+		
+		//拍照和相册相关代码...
+		mui(".mui-table-view").on('tap','.mui-table-view-cell',function(){
+			 
+			  var id = this.getAttribute("id");
+			  if(id == "xupload"){
+//			  	console.log(imgarr.length);
+//			  	if(imgarr.length >= 5){
+//				 	mui.alert("最多只能上传5张照片","提醒");
+//				 	return;
+//				 }
+			  	if (mui.os.plus) { 
+	                var a = [{ 
+	                    title: "拍照" 
+	                }, { 
+	                    title: "从手机相册选择" 
+	                }]; 
+	                plus.nativeUI.actionSheet({ 
+	                    title: "上传现场照片", 
+	                    cancel: "取消", 
+	                    buttons: a 
+	                }, function(b) { /*actionSheet 按钮点击事件*/ 
+	                    switch (b.index) { 
+	                        case 0: 
+	                            break; 
+	                        case 1: 
+	                            getImage(); /*拍照*/ 
+	                            break; 
+	                        case 2: 
+	                            galleryImg();/*打开相册*/ 
+	                            break; 
+	                        default: 
+	                            break; 
+	                    } 
+	                }) 
+	            } 
+			  }
+		});
+		
+		
+		function getImage() { 
+            var c = plus.camera.getCamera(); 
+            c.captureImage(function(e) { 
+                plus.io.resolveLocalFileSystemURL(e, function(entry) { 
+                    var s = entry.toLocalURL() + "?version=" + new Date().getTime(); 
+                    var list = document.getElementById("list");
+		            var beforeElement = document.getElementById("xupload");
+		            var newNode = document.createElement("li");
+		            newNode.classList.add("mui-table-view-cell");
+		            newNode.classList.add("mui-media");
+		            newNode.classList.add("mui-col-xs-4");
+		            newNode.classList.add("mui-col-sm-3");
+					newNode.innerHTML = '<img src="'+entry.toLocalURL()+'" style="width: 100%;height: 70px;" data-preview-src="" data-preview-group="1" />';
+					list.insertBefore(newNode,beforeElement);
+//                  console.log(entry.toLocalURL());
+                    uploadHead(s);
+                }); 
+            }) 
+        } 
+        
+        function galleryImg() { 
+            plus.gallery.pick(function(a) { 
+                plus.io.resolveLocalFileSystemURL(a, function(entry) { 
+                    var s = entry.toLocalURL() + "?version=" + new Date().getTime(); 
+                    var list = document.getElementById("list");
+		            var beforeElement = document.getElementById("xupload");
+		            var newNode = document.createElement("li");
+		            newNode.classList.add("mui-table-view-cell");
+		            newNode.classList.add("mui-media");
+		            newNode.classList.add("mui-col-xs-4");
+		            newNode.classList.add("mui-col-sm-3");
+					newNode.innerHTML = '<img src="'+entry.toLocalURL()+'" style="width: 100%;height: 70px;" data-preview-src="" data-preview-group="1" />';
+					list.insertBefore(newNode,beforeElement);
+//                  console.log(entry.toLocalURL());
+                    uploadHead(s);
+                }); 
+            }, function(a) {}, { filter: "image" }) 
+        }; 
+        
+        function guid() {
+		    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+		        return v.toString(16);
+		    });
+		}
+        
+        
+        //var imgarr = [];
+        
+        function uploadHead(imgPath) { 
+        	//	console.log(imgPath);
+            var image = new Image(); 
+            image.src = imgPath; 
+            image.onload = function() { 
+                var imgData = getBase64Image(image); 
+                //imgarr.push(imgData);
+                /*在这里调用上传接口*/ 
+                //console.log(imgData); 
+                mui.ajax(appConfig.apiroot+'upload.php', { 
+                    data: { 
+                         imgBase64:imgData,
+                         caseid:caseid
+                    }, 
+                    type: 'post', 
+                    timeout: 1000000, 
+                    success: function(data) {
+//						if(data){
+//	                        mui.alert("上传成功","提醒");
+//	                    }else{
+//	                        mui.alert("上传失败，请重新上传","提醒");
+//	                    }
+
+                        mui.toast('图片上传成功'); 
+                    }, 
+                    error: function(xhr, type, errorThrown) { 
+                        mui.toast('网络异常，请稍后再试！'); 
+                    } 
+                }); 
+            } 
+    		} 
+        //将图片压缩转成base64 
+        function getBase64Image(img) { 
+            var canvas = document.createElement("canvas"); 
+            var width = img.width; 
+            var height = img.height; 
+            // calculate the width and height, constraining the proportions 
+            if (width > height) { 
+                if (width > 100) { 
+                    height = Math.round(height *= 500 / width); 
+                    width = 500; 
+                } 
+            } else { 
+                if (height > 100) { 
+                    width = Math.round(width *= 500 / height); 
+                    height = 500; 
+                } 
+            } 
+            canvas.width = width;   /*设置新的图片的宽度*/ 
+            canvas.height = height; /*设置新的图片的长度*/ 
+            var ctx = canvas.getContext("2d"); 
+            ctx.drawImage(img, 0, 0, width, height); /*绘图*/ 
+            var dataURL = canvas.toDataURL("image/png", 0.8); 
+            return dataURL;//dataURL.replace("data:image/png;base64,", ""); 
+        }   
+        
+	</script>
+	
+	<script>
+		(function($, doc) {
+				$.init();
+				$.ready(function() {
+//					var sexPicker = new $.PopPicker();
+//					sexPicker.setData([{
+//						value: '1',
+//						text: '男'
+//					}, {
+//						value: '2',
+//						text: '女'
+//					}]);
+//					var showsexPicker = doc.getElementById('selecsex');
+//					showsexPicker.addEventListener('tap', function(event) {
+//						sexPicker.show(function(items) {
+//							showsexPicker.value = items[0].text;
+//						});
+//					}, false);
+					
+					var weizhiPicker = new $.PopPicker();
+					weizhiPicker.setData([{
+						value: 'wsj',
+						text: '卫生间'
+					}, {
+						value: 'pcch',
+						text: '飘窗窗户'
+					}, {
+						value: 'db',
+						text: '顶板'
+					}, {
+						value: 'qm',
+						text: '墙面'
+					}]);
+					var selectweizhiPicker = doc.getElementById('selectweizhi');
+					selectweizhiPicker.addEventListener('tap', function(event) {
+						weizhiPicker.show(function(items) {
+							selectweizhiPicker.value = items[0].text;
+							
+							var type =items[0].value;
+							var jsondata = {};
+							mui.ajax(appConfig.apiroot+'getconfig.php?type='+type,{
+							    dataType:'json',type:'get',async:false,success:function(data){jsondata = JSON.parse(data);}
+							});
+							var nodeHTML = "";
+							for(var i = 0; i < jsondata.length; i++){
+								nodeHTML += '<div class="pg-title">'+jsondata[i].text+'</div>';
+								for(var j = 0; j < jsondata[i].option.length; j++){
+									nodeHTML += '<div class="pg-container-item"><span>'+jsondata[i].option[j].text+'</span></div>';
+								}
+							}
+							document.getElementById('slqk').innerHTML = nodeHTML;
+							
+						});
+					}, false);
+					
+				});
+		})(mui, document);
+	</script>
+	
+	
+</body>
+</html>

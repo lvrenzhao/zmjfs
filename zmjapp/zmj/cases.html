@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <title></title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/imgviewer.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/countUp.js"></script>
+	<script src="js/mui.zoom.js"></script>
+	<script src="js/mui.previewimage.js"></script>
+    <style>
+    	/*.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+	    padding: 5px !important;padding-top: 10px !important;
+	    vertical-align:auto !important;
+   }*/
+    </style>
+
+</head>
+<body>
+    <div class="mui-off-canvas-wrap mui-draggable">
+        <div class="mui-inner-wrap">
+            <header class="mui-bar mui-bar-nav">
+                <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-right" href="#offCanvasSide" style="margin-top: 8px;"></a>
+                <img src="img/newlogo.png" height="28px" style="margin-top: 16px;"  />
+            </header>
+            <div class="mui-content mui-scroll-wrapper">
+                <div class="mui-scroll" id="global">
+                	
+					<div style="width: 100%;height: 50px;background-color: #fafafa;text-align: center;padding-top: 7px;padding-left: 10px;padding-right: 10px;">
+		                	 <a href="javascript:;" style="color: #7f7f7f;">已有 <h2 style="display: inline;color: #fc0;" id="myTargetElement"></h2> 个家庭选择芝麻家防水</a>
+		            </div>
+		            
+					<div id="record"></div>
+	                <!--<div class="mui-card">
+						<div class="mui-card-header">融合成3期20#***室卫生间渗漏</div>
+						<div class="mui-card-content">
+							<ul class="mui-table-view mui-grid-view mui-grid-9">
+								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								    <img src="img/wsj1.jpeg" style="width: 100%;height: 70px;"  data-preview-src="" data-preview-group="1" />
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								    <img src="img/wsj2.jpeg" style="width: 100%;height: 70px;"  data-preview-src="" data-preview-group="1"/>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								    <img src="img/yt1.jpeg" style="width: 100%;height: 70px;" data-preview-src="" data-preview-group="1" />
+								</li>
+							</ul>
+						</div>
+						<div class="mui-card-footer"><span>业主：张先生</span><span>2017/04/01</span></div>
+					</div>-->
+				    <div style="text-align: center;padding: 10px;">
+				    		<span style="font-size: 14px;color: #666;text-align: " id="loadinfo">正在加载数据......</span>
+				    </div>
+                </div>
+            </div>
+            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item" id="index"><span class="mui-icon mui-icon-home"></span><span class="mui-tab-label">芝麻家科普</span></a>
+	    		    <a class="mui-tab-item" id="evaluate"><span class="mui-icon mui-icon-compose"></span><span class="mui-tab-label">在线评估</span></a>
+	    		    <a class="mui-tab-item" id="usercenter"><span class="mui-icon mui-icon-person"></span><span class="mui-tab-label">个人中心</span></a>
+	    		    <a class="mui-tab-item" id="telphone" ><span class="mui-icon mui-icon-phone"></span><span class="mui-tab-label">电话咨询</span></a>
+	    		</nav>
+            <aside class="mui-off-canvas-right" id="offCanvasSide">
+                <div class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                    		<div style="margin: 35px 15px 10px;color: #fc0;">想要修防水，先来芝麻家!</div>
+                        <ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted" id="grid_menu">
+							<li class="mui-table-view-cell" id="index"><a class="mui-navigate-right" style="color: #fc0;"><span class="mui-icon mui-icon-home"></span> 芝麻家科普 </a></li>
+							<li class="mui-table-view-cell" id="evaluate"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-compose"></span> 在线评估</a></li>
+							<li class="mui-table-view-cell" id="usercenter"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-person"></span> 个人中心</a></li>
+							<li class="mui-table-view-cell" id="workflow"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-paperclip"></span> 修缮流程</a></li>
+							<li class="mui-table-view-cell" id="cases"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-flag"></span> 修缮案例 </a></li>
+							<li class="mui-table-view-cell" id="job"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-contact"></span> 师傅招募 </a></li>
+							<li class="mui-table-view-cell" id="about"><a class="mui-navigate-right"  style="color: #fc0;"><span class="mui-icon mui-icon-info"></span> 关于芝麻家 </a></li>
+						</ul>
+	                </div>
+	            </div>
+            </aside>
+       	 	<div class="mui-off-canvas-backdrop"></div>
+        </div>
+    </div>
+	<script type="text/javascript">
+		mui.init();
+		mui.previewImage();
+		var sysconfig={}
+		var scroll = mui('.mui-scroll-wrapper').scroll({deceleration: 0.0005 });
+		mui.ajax('config/config.json',{
+		    dataType:'json',type:'get',async:false,success:function(data){sysconfig = data;}
+		});
+		mui(".mui-bar-tab").on('tap','.mui-tab-item',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id=="telphone"?"tel:"+sysconfig.telphone:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+		mui("#grid_menu").on('tap','.mui-table-view-cell',function(){
+			  var id = this.getAttribute("id");
+			  mui.openWindow({
+			    id:id,
+			    url:id+'.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		}) 
+		
+		mui.ajax(sysconfig.apiroot+'getcasecount.php',{
+		    dataType:'json',type:'get',success:function(data){
+//		    		var options = {
+//				  useEasing : false, 
+//				  useGrouping : false, 
+//				  separator : ',', 
+//				  decimal : '.', 
+//				  prefix : '', 
+//				  suffix : '' 
+//				};
+				var caseCount = data.data;
+//				var countLable = new CountUp("myTargetElement", 0, caseCount, 0, 1.5, options);
+//				countLable.start();
+				document.getElementById("myTargetElement").innerHTML = caseCount;
+		    }
+		});
+		
+		loaddetails();
+		
+		
+		function loaddetails(){
+			mui.ajax(sysconfig.apiroot+'gettop50caselist.php',{
+			    dataType:'json',type:'get',success:function(data){
+			    		if(data && data.data && data.data.length > 0){
+			    			var html = "";
+			    			var obj={"wsj":"卫生间","pcch":"飘窗窗户","db":"顶板","qm":"墙面"}
+			    			for(var i = 0 ; i < data.data.length ; i ++){
+			    				var item = data.data[i];
+			    				var photoStr = "";
+			    				mui.ajax(sysconfig.apiroot+'getphotolist.php?caseid='+item.khid,{
+							    dataType:'json',type:'get',async:false, success:function(picdata){
+								    	if(picdata && picdata.data && picdata.data.length > 0){
+								    		for(var i = 0 ; i < picdata.data.length ; i ++){
+								    			photoStr += '<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><img src="'+picdata.data[i].filename+'" style="width: 100%;height: 70px;" data-preview-src=""  data-preview-group="'+picdata.data[i].caseid+'" /></li>';
+								    		}
+								    	}
+							    }
+							});
+			    				html += '<div class="mui-card"><div class="mui-card-header">'+item.xqmc+'-'+item.xqld+'#****室['+item.sswz+']</div><div class="mui-card-content"><ul class="mui-table-view mui-grid-view mui-grid-9">'+photoStr
+			    				+'</ul></div><div class="mui-card-footer"><span>业主：'+item.khch+'</span><span>'+
+			    				item.djsj+'</span></div></div>';
+			    			}
+			    			document.getElementById("record").innerHTML = html;
+						document.getElementById("loadinfo").innerHTML="--系统仅展示最新成交的前50名客户案例--";
+			    		}else{
+			    			//document.getElementById("record").innerHTML = "<span style='font-size: 14px;display: inline-block;padding: 15px;'>未查询到修缮记录</span>";
+			    		}
+			    }
+			});
+		}
+		
+		
+	</script>
+</body>
+</html>

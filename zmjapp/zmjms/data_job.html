@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+</head>
+<body>
+    <div class="mui-off-canvas-wrap mui-draggable">
+        <div class="mui-inner-wrap">
+            <header class="mui-bar mui-bar-nav">
+                <img src="img/newlogo.png" height="28px" style="margin-top: 16px;"  /><a style="font-size: 16px;">业务端</a>
+            </header>
+            <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+                <div class="mui-scroll" >
+	                <div id="global">
+	                		<div id="info"></div>
+	                </div>
+	               <!--<div class="mui-card">
+						<div class="mui-card-header">张三丰<a id="10086" class="atel">13855112321</a></div>
+						<div class="mui-card-content" style="padding: 10px;">
+							<span>出生年份：1979</span><br />
+							<span>性别：男</span><br />
+							<span>所在城市：合肥</span><br />
+							<span>QQ或微信号：5392023</span>
+						</div>
+						<div class="mui-card-footer" ><span>技术类型：水电</span><span>申请日期：2017/04/01</span></div>
+					</div>-->
+
+                </div>
+            </div>
+            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item" id="index"><span class="mui-icon mui-icon-compose"></span><span class="mui-tab-label">登记客户</span></a>
+	    		    <a class="mui-tab-item" id="mycustomer"><span class="mui-icon mui-icon-person"></span><span class="mui-tab-label">我的客户</span></a>
+	    		    <!--<a class="mui-tab-item" id="allcustomer"><span class="mui-icon mui-icon-bars"></span><span class="mui-tab-label">所有客户</span></a>
+	    		    <a class="mui-tab-item" id="setting" ><span class="mui-icon mui-icon-gear"></span><span class="mui-tab-label">账户管理</span></a>-->
+	    		    <a class="mui-tab-item mui-active" style="display: none;" id="admin" ><span class="mui-icon mui-icon-gear"></span><span class="mui-tab-label">系统管理</span></a>
+	    		    <a class="mui-tab-item" id="sjz" ><span class="mui-icon mui-icon-home"></span><span class="mui-tab-label">手机站</span></a>
+	    		    <a class="mui-tab-item" id="logon" ><span class="mui-icon mui-icon-undo"></span><span class="mui-tab-label">返回登录</span></a>
+	    		</nav>
+	    		
+        </div>
+    </div>
+	<script type="text/javascript">
+		mui.init({
+			pullRefresh: {container: '#pullrefresh',up: {callback: pullupRefresh}}
+		});
+		if(localStorage.getItem("js") == "系统管理员" || localStorage.getItem("js") == "勘察人员"){
+			document.getElementById("admin").style.display = "table-cell";
+		}
+		var appConfig={};
+		mui.ajax('config.json',{
+		    dataType:'json',type:'get',async:false,success:function(data){appConfig = data;}
+		});
+		var scroll = mui('.mui-scroll-wrapper').scroll({deceleration: 0.0005 });
+		mui(".mui-bar-tab").on('tap','.mui-tab-item',function(){
+			  var id = this.getAttribute("id");
+			  if(id == "sjz"){
+			  	plus.runtime.openURL('http://wmaizhu.com/zmj/index.html');
+			  }else{
+				  mui.openWindow({
+				    id:id,
+				    url:id+'.html',
+					createNew:true,
+				    	show:{autoShow:true,aniShow:"",},
+				  });
+			  }
+		});
+		
+		
+		mui('body').on('tap','.atel',function(){
+			var id = this.getAttribute("id");
+//		    mui.openWindow({
+//			    id:id,
+//			    url:'tel:'+id,
+//				createNew:true,
+//			    	show:{autoShow:true,aniShow:"",},
+//		    });
+			var btnArray = ['拨打', '取消']; 
+            var Phone = id;
+            mui.confirm('是否拨打 ' + Phone + ' ？', '提示', btnArray, function(e) { 
+                if (e.index == 0) { 
+                    plus.device.dial(Phone, false); 
+                }  
+            }); 
+		})
+		
+		var pagesize = 2;
+		function pullupRefresh() {
+			query(pagesize);
+			pagesize++;
+		}
+		
+		query(1);
+		
+		function query(pagesize){
+			var list = document.getElementById("global");
+	        var flag = document.getElementById("info");
+//			console.log(list,flag);
+	        
+			mui.ajax(appConfig.apiroot+'getjoblist.php',{
+				data:{
+					pagesize:pagesize
+				},	
+			    dataType:'json',type:'get',success:function(data){
+			    		if(data && data.data && data.data.length > 0){
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(); 
+			    			
+			    			for(var i = 0 ; i < data.data.length ; i ++){
+			    				var newNode = document.createElement("div");
+				            newNode.classList.add("mui-card");
+			    				var item = data.data[i];
+			    				newNode.innerHTML = '<div class="mui-card-header">'+item.xm+'<a id="'+item.sjh+'" class="atel">'+item.sjh+'</a></div><div class="mui-card-content" style="padding: 10px;"><span>出生年份：'
+			    				+item.sr+'</span><br /><span>性别：'+item.xb+'</span><br /><span>所在城市：'+item.szcs+'</span><br /><span>QQ或微信号：'+item.wxqqh+'</span></div><div class="mui-card-footer" ><span>技术类型：'+item.jslx+'</span><span>申请日期：'+item.djsj+'</span></div>';
+			    				list.insertBefore(newNode,flag);
+			    			}
+			    		}else{
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); 
+			    		}
+			    }
+			});
+		}
+		
+	</script>
+	
+	
+	
+</body>
+</html>

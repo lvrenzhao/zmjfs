@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+    <title></title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/mui.picker.min.css" rel="stylesheet" />
+    <link href="css/imgviewer.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js"></script>
+	<script src="js/mui.zoom.js"></script>
+	<script src="js/mui.previewimage.js"></script>
+</head>
+<body>
+    <div class="mui-off-canvas-wrap mui-draggable">
+        <div class="mui-inner-wrap">
+            <header class="mui-bar mui-bar-nav">
+                <img src="img/newlogo.png" height="28px" style="margin-top: 16px;"  /><a style="font-size: 16px;">业务端</a>
+                <a class="mui-icon mui-action-menu mui-icon-search mui-pull-right" href="#offCanvasSide" style="margin-top: 8px;"></a>
+            </header>
+            <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+                <div class="mui-scroll">
+	                
+	                <div id="global">
+	                		<div id="info"></div>
+	                </div>
+	                
+	                <!--<div class="mui-card">
+						<div class="mui-card-header">融合成3期20#1102室卫生间渗漏</div>
+						<div class="mui-card-content">
+							<ul class="mui-table-view mui-grid-view mui-grid-9">
+								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								    <img src="img/wsj1.jpeg" style="width: 100%;height: 70px;"  data-preview-src="" data-preview-group="1" />
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								    <img src="img/wsj2.jpeg" style="width: 100%;height: 70px;"  data-preview-src="" data-preview-group="1"/>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								    <a><span class="mui-icon mui-icon-plus-filled"></span><br/><span style="font-size: 12px;">添加照片</span></a>
+								</li>
+							</ul>
+						</div>
+						<div class="mui-card-footer"><span>号码:18156018392</span><span><a>查看评估表</a></span></div>
+						<div class="mui-card-footer"><span>业主：张先生</span><span>2017/04/01</span></div>
+					</div>-->
+
+                </div>
+            </div>
+            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item " id="index"><span class="mui-icon mui-icon-compose"></span><span class="mui-tab-label">登记客户</span></a>
+	    		    <a class="mui-tab-item" id="mycustomer"><span class="mui-icon mui-icon-person"></span><span class="mui-tab-label">我的客户</span></a>
+	    		    <!--<a class="mui-tab-item" id="allcustomer"><span class="mui-icon mui-icon-bars"></span><span class="mui-tab-label">所有客户</span></a>
+	    		    <a class="mui-tab-item" id="setting" ><span class="mui-icon mui-icon-gear"></span><span class="mui-tab-label">账户管理</span></a>-->
+	    		    <a class="mui-tab-item mui-active" style="display: none;" id="admin" ><span class="mui-icon mui-icon-gear"></span><span class="mui-tab-label">系统管理</span></a>
+	    		    <a class="mui-tab-item" id="sjz" ><span class="mui-icon mui-icon-home"></span><span class="mui-tab-label">手机站</span></a>
+	    		    <a class="mui-tab-item" id="logon" ><span class="mui-icon mui-icon-undo"></span><span class="mui-tab-label">返回登录</span></a>
+	    		</nav>
+	    		<aside class="mui-off-canvas-right" id="offCanvasSide">
+                <div class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                    		<div class="title" style="color: #fff;padding: 10px;">客户查询</div>
+                    		<form class="mui-input-group">
+							<div class="mui-input-row">
+								<label>手机号</label>
+								<input type="text" id="txt_phone" placeholder="业主手机号">
+							</div>
+							<div class="mui-input-row">
+								<label>小区名</label>
+								<input type="text" id="txt_xqm" class="mui-input-clear" placeholder="小区名称">
+							</div>
+							<!--<div class="mui-input-row">
+								<input id="startdate" type="text" class="mui-input-clear" placeholder="点击选择起始日期" data-options='{"type":"date"}'>
+							</div>
+							<div class="mui-input-row">
+								<input id="enddate" type="text" class="mui-input-clear" placeholder="点击选择结束日期" data-options='{"type":"date"}'>
+							</div>-->
+		
+							<div class="mui-button-row">
+								<button type="button" id="btn_search" class="mui-btn mui-btn-warning" onclick="return false;"><span class="mui-icon mui-icon-search"></span> 搜索</button>
+							</div>
+						</form>
+	                </div>
+	            </div>
+            </aside>
+       	 	<div class="mui-off-canvas-backdrop"></div>
+        </div>
+    </div>
+	<script type="text/javascript">
+		mui.init({
+			pullRefresh: {container: '#pullrefresh',up: {callback: pullupRefresh}}
+		});
+		if(localStorage.getItem("js") == "系统管理员" || localStorage.getItem("js") == "勘察人员"){
+			document.getElementById("admin").style.display = "table-cell";
+		}
+		var appConfig={};
+		mui.ajax('config.json',{
+		    dataType:'json',type:'get',async:false,success:function(data){appConfig = data;}
+		});
+		mui.previewImage();
+		
+		var scroll = mui('.mui-scroll-wrapper').scroll({deceleration: 0.0005 });
+		mui(".mui-bar-tab").on('tap','.mui-tab-item',function(){
+			  var id = this.getAttribute("id");
+			  if(id == "sjz"){
+			  	plus.runtime.openURL('http://wmaizhu.com/zmj/index.html');
+			  }else{
+				  mui.openWindow({
+				    id:id,
+				    url:id+'.html',
+					createNew:true,
+				    	show:{autoShow:true,aniShow:"",},
+				  });
+			  }
+		});
+		
+		
+		mui('body').on('tap','#btn_search',function(){
+			mui('.mui-off-canvas-wrap').offCanvas().close();
+			document.getElementById("global").innerHTML = '<div id="info"></div>';
+			query(1);
+			var pagesize = 2;
+		});
+		
+		mui('body').on('tap','.seepgb',function(){
+			 var checkitems = this.getAttribute("id");
+			 var type = this.getAttribute("id2");
+			 var obj={"卫生间":"wsj","墙面":"qm","飘窗窗户":"pcch","顶板":"db"}
+			 localStorage.setItem("type",obj[type]);
+			 localStorage.setItem("checkitems",checkitems);
+			  mui.openWindow({
+			    id:"details__",
+			    url:'data_evaluate_detail.html',
+				createNew:true,
+			    	show:{autoShow:true,aniShow:"",},
+			  });
+		});
+		
+		query(1);
+		
+		
+		
+		var pagesize = 2;
+		function pullupRefresh() {
+			query(pagesize);
+			pagesize++;
+		}
+		
+        
+		function query(pagesize){
+			var list = document.getElementById("global");
+	        var flag = document.getElementById("info");
+	        //var yhid = localStorage.getItem("yhid");
+			var xqm = document.getElementById("txt_xqm").value;
+			var phone =document.getElementById("txt_phone").value;
+			mui.ajax(appConfig.apiroot+'getallcustomerlist.php',{
+				data:{
+					pagesize:pagesize,
+					//djryhid:yhid,
+					sjh:phone,
+					xqm:xqm
+				},	
+			    dataType:'json',type:'get',success:function(data){
+			    		if(data && data.data && data.data.length > 0){
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(); 
+			    			var obj={"wsj":"卫生间","pcch":"飘窗窗户","db":"顶板","qm":"墙面"}
+			    			for(var i = 0 ; i < data.data.length ; i ++){
+			    				var newNode = document.createElement("div");
+				            newNode.classList.add("mui-card");
+				    			//var html = "";
+			    				var item = data.data[i];
+			    				var photoStr = "";
+			    				mui.ajax(appConfig.apiroot+'getphotolist.php?caseid='+item.khid,{
+							    dataType:'json',type:'get',async:false, success:function(picdata){
+								    	if(picdata && picdata.data && picdata.data.length > 0){
+								    		for(var i = 0 ; i < picdata.data.length ; i ++){
+								    			photoStr += '<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><img src="'+picdata.data[i].filename+'" style="width: 100%;height: 70px;" data-preview-src=""  data-preview-group="'+picdata.data[i].caseid+'" /></li>';
+								    		}
+								    	}
+							    }
+							});
+			    				newNode.innerHTML = '<div class="mui-card-header">'+item.xqmc+'-'+item.xqld+'#' + item.mph+ '室['+item.sswz+']</div><div class="mui-card-content"><ul class="mui-table-view mui-grid-view mui-grid-9">'+photoStr
+			    				+'</ul></div><div class="mui-card-footer"><span>号码:'+item.sjh+'</span><span><a class="seepgb" id2="'+item.sswz+'" id="'+item.checkitems+'">查看评估表</a></span></div><div class="mui-card-footer"><span>业主：'+item.khch+'</span><span>'+
+			    				item.djsj+'</span></div>';
+			    				list.insertBefore(newNode,flag);
+			    			}
+	//		    			document.getElementById("global").innerHTML = html ;
+			    		}else{
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); 
+			    		}
+			    }
+			});
+		}
+	</script>
+	
+	
+	<script>
+		(function($, doc) {
+				$.init();
+				$.ready(function() {
+					
+//					var startdatePicker = doc.getElementById('startdate');
+//					startdatePicker.addEventListener('tap', function(event) {
+//						var optionsJson = this.getAttribute('data-options') || '{}';
+//						var options = JSON.parse(optionsJson);
+//						var picker = new $.DtPicker(options);
+//						picker.show(function(rs) {
+//							startdatePicker.value = rs.text;
+//							picker.dispose();
+//						});
+//					}, false);
+//					var enddatePicker = doc.getElementById('enddate');
+//					enddatePicker.addEventListener('tap', function(event) {
+//						var optionsJson = this.getAttribute('data-options') || '{}';
+//						var options = JSON.parse(optionsJson);
+//						var picker = new $.DtPicker(options);
+//						picker.show(function(rs) {
+//							enddatePicker.value = rs.text;
+//							picker.dispose();
+//						});
+//					}, false);
+					
+					//mui('.mui-off-canvas-wrap').offCanvas().show();
+				});
+		})(mui, document);
+	</script>
+	
+</body>
+</html>
